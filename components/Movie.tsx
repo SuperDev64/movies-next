@@ -1,9 +1,16 @@
 import Link from "next/link";
 
-export default function Movie({details}) {
+interface IMovie {
+    id: string;
+    poster_path: string;
+    title: string;
+    overview: string;
+}
+
+export default function Movie({details}: {details: IMovie}) {
     return (
         <Link
-            href="/filmes/1"
+            href={`/filme/${details.id}`}
             className="relative block overflow-hidden rounded-lg p-4 sm:p-6 lg:p-8 bg-neutral-100 hover:scale-105 transition-transform"
         >
             <span
