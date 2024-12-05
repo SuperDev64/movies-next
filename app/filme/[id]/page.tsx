@@ -1,5 +1,5 @@
 import Image from "next/image";
-import {Metadata, ResolvingMetadata} from "next";
+import {Metadata} from "next";
 import MovieDetails from "@/components/MoviePage/MovieDetails";
 import Hero from "@/components/MoviePage/Hero";
 import Buttons from "@/components/MoviePage/Buttons";
@@ -40,11 +40,11 @@ const fetchMovieData = async (id: string | number) => {
 
   const data = await fetch(url, options)
   const movie: IMovie = await data.json()
+
   return movie
 }
 
 export async function generateMetadata({ params }: PageParams): Promise<Metadata> {
-  // read route params
   const movie: IMovie = await fetchMovieData(params.id);
 
   return {
@@ -53,7 +53,7 @@ export async function generateMetadata({ params }: PageParams): Promise<Metadata
   }
 }
 
-export default async function MoviePage({params: {id}}: PageParams) {
+export default async function Page({params: {id}}: PageParams) {
   const movie: IMovie = await fetchMovieData(id);
 
   return (
@@ -80,8 +80,8 @@ export default async function MoviePage({params: {id}}: PageParams) {
 
               <p className="text-xl mt-6 min-h-7">{movie.tagline}</p>
 
-              <div className="flex gap-4 mt-6 font-bold">
-                <Buttons />
+              <div className="flex gap-4 mt-6 font-bold min-h-14">
+                <Buttons movieId={movie.id} />
               </div>
 
               <div className="flex mt-14 gap-4">
